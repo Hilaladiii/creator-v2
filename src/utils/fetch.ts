@@ -27,6 +27,9 @@ export async function fetchApi<T>({
       tags: [tag],
     };
   }
-  const res = await fetch(`http://127.0.0.1:3000/api/${path}`, option);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_PATH}/${path}`,
+    option
+  );
   return await res.json();
 }

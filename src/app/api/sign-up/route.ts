@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const verificationLink = `http://localhost:3000/api/verify-email?token=${verificationToken}`;
+    const verificationLink = `${process.env.NEXT_PUBLIC_API_PATH}/verify-email?token=${verificationToken}`;
 
     const mailOption = {
       from: "Creator@gmail.com",
