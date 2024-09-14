@@ -7,6 +7,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
 model User{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   username String @unique
@@ -21,16 +23,12 @@ model User{
   password String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt  
-  
-  role Role @default(USER)
+    
   accounts Account[]
   proposals Proposal[]  
+  orders Order[]
+  reviews Review[]
 
-}
-
-enum Role{
-  SPEAKER
-  USER
 }
 
 
@@ -55,14 +53,19 @@ model Account{
 
 enum Status{
   WAITING
-  ACCEPTED
-  REJECTED
+  APPROVED
+  NOT_APPROVED
+  WAITING_PAYMENT
+  SUCCESS_PAYMENT
 }
 
 model Proposal{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
-  description String
+  email String
+  phoneNumber String
+  subject String
+  proposal String
   status Status @default(WAITING)
 
   companyId String @db.ObjectId
@@ -84,20 +87,88 @@ enum Category{
 model Company{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
-  Description String
-  category Category
+  email String @unique
+  description String
+  photo String
+  location String
+  accepted Float? @default(0)
+  website String
+  phone String
+  profile String
+  rating Float? @default(0)
+  totalReview Float? @default(0)
 
+  category Category
   proposals Proposal[]
 }
 
+model Order{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  eventName String  
+  eventDescription String
+  eventDate DateTime
+  eventTime String
+  orderCode String @unique
+  duration Float
+  rundown String
+  script String?
+  bookDate DateTime @default(now()) 
+  status Status @default(WAITING_PAYMENT)
+  totalPrice Float
+  paymentType PaymentType
+  
+  userId String @db.ObjectId
+  user User @relation(fields: [userId],references: [id])
+
+  speakerId String @db.ObjectId
+  speaker Speaker @relation(fields: [speakerId],references: [id])  
+  
+
+}
+
+enum PaymentType{
+  BRI
+  BCA
+  GOPAY
+}
+
+model Review{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  star Int
+  review String
+  date DateTime @default(now())
+
+  userId String @db.ObjectId
+  user User @relation(fields: [userId],references: [id])
+
+  speakerId String @db.ObjectId
+  speaker Speaker @relation(fields: [speakerId],references: [id])
+  
+}
 
 model Speaker{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   email String @unique
-  name String 
-  Location String
-  price Float
+  name String   
   description String
   photo String
+  price Float
+  location String
+  rating Float? @default(0)
+  totalReview Int? @default(0)
+  portofolio String
+  category Category
+
+  orders Order[]
+  reviews Review[]
+  schedules Schedule[]
 }
 
+model Schedule{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  time DateTime @db.Timestamp
+  date DateTime @db.Date
+
+  speakerId String @db.ObjectId
+  speaker Speaker @relation(fields: [speakerId],references: [id])
+}
