@@ -40,7 +40,7 @@ const SignUpForm = () => {
 
   const onSubmit: SubmitHandler<TSignUp> = (data) => {
     setLoading(true);
-    fetch("/api/sign-up", {
+    fetch(`${process.env.NEXT_PUBLIC_API_PATH}/sign-up`, {
       method: "POST",
       body: JSON.stringify(data),
     })

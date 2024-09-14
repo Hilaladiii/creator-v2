@@ -1,6 +1,5 @@
 import { TOrder } from "@/app/(pages)/(main)/form-event/speakers/[id]/_components/FormSpeaker";
 import { fetchApi } from "@/utils/fetch";
-import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function orderSpeakerService(data: TOrder) {
   try {
@@ -19,12 +18,17 @@ export async function orderSpeakerService(data: TOrder) {
       formData.append("script", data.script);
     }
 
-    const response = await fetch("/api/order/create", {
-      method: "POST",
-      body: formData,
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_PATH}/order/create`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
-    await fetch("/api/revalidate/order", { method: "GET" });
+    await fetch(`${process.env.NEXT_PUBLIC_API_PATH}/revalidate/order`, {
+      method: "GET",
+    });
 
     const res = await response.json();
 

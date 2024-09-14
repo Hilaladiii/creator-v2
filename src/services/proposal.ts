@@ -13,12 +13,17 @@ export async function applyProposalService(data: TProposal) {
     formData.append("companyId", data.companyId!);
     formData.append("userId", data.userId!);
 
-    const response = await fetch("/api/proposal/create", {
-      method: "POST",
-      body: formData,
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_PATH}/proposal/create`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
-    await fetch("/api/revalidate/proposal", { method: "GET" });
+    await fetch(`${process.env.NEXT_PUBLIC_API_PATH}/revalidate/proposal`, {
+      method: "GET",
+    });
 
     const res = await response.json();
     return res;
