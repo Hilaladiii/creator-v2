@@ -11,14 +11,6 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_API_PATH: process.env.NEXT_PUBLIC_API_PATH,
   },
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: `https://${process.env.NEXT_PUBLIC_API_PATH}/api/:path*`,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
