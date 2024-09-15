@@ -3,6 +3,7 @@ import FilterCategory from "@/components/FilterCategory";
 import FilterLocation from "@/components/FilterLocation";
 import ListSpeakers from "./_components/ListSpeakers";
 import { Suspense } from "react";
+import ListSkeleton from "@/components/ListSkeleton";
 
 const SpeakersPage = ({
   searchParams,
@@ -20,7 +21,13 @@ const SpeakersPage = ({
         <FilterCategory />
         <div className="flex flex-row w-full justify-between gap-16">
           <FilterLocation />
-          <Suspense fallback={<p>loading...</p>}>
+          <Suspense
+            fallback={
+              <div className="w-full mt-10 flex flex-row justify-between">
+                <ListSkeleton />
+              </div>
+            }
+          >
             <ListSpeakers currentPage={currPage} />
           </Suspense>
         </div>

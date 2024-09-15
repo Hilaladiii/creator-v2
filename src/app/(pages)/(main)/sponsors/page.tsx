@@ -1,8 +1,9 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import Poster from "@/components/Poster";
 import FilterCategory from "@/components/FilterCategory";
 import FilterLocation from "@/components/FilterLocation";
 import ListSponsors from "./_components/ListSponsors";
+import ListSkeleton from "@/components/ListSkeleton";
 
 const SponsorsPage = () => {
   return (
@@ -15,7 +16,13 @@ const SponsorsPage = () => {
         <FilterCategory />
         <div className="flex flex-row w-full justify-between gap-16">
           <FilterLocation />
-          <Suspense fallback={<p>loading...</p>}>
+          <Suspense
+            fallback={
+              <div className="w-full mt-10 flex flex-row justify-between">
+                <ListSkeleton />
+              </div>
+            }
+          >
             <ListSponsors />
           </Suspense>
         </div>
