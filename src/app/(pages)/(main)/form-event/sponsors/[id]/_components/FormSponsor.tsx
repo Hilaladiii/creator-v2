@@ -61,7 +61,7 @@ const FormSponsor = ({ id }: { id: string }) => {
     setLoading(true);
     const res = await applyProposalService(data);
     if (res.status == 201) {
-      reset()
+      reset();
       setShow(true);
       setLoading(false);
     }
@@ -125,7 +125,12 @@ const FormSponsor = ({ id }: { id: string }) => {
               type="file"
               errors={errors.proposal}
             />
-            <Button label="Submit" full className="mt-8" type="submit" />
+            <Button
+              label={loading ? "Submitting..." : "Submit"}
+              full
+              className="mt-8"
+              type="submit"
+            />
           </div>
         </div>
       </form>

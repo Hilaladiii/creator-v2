@@ -65,7 +65,7 @@ const LoginForm = () => {
           placeholder="* * * * * * * *"
           type="password"
         ></Input>
-        <Button label="Login" full type="submit" />
+        <Button label={loading ? "Loading..." : "Login"} full type="submit" />
       </form>
       {message && (
         <p className="mt-3 text-center text-xs text-red-500">{message}</p>

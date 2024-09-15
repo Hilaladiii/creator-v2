@@ -120,7 +120,12 @@ const SignUpForm = () => {
             placeholder="* * * * * * * *"
             type="password"
           />
-          <Button label="Sign Up" type="submit" full disabled={loading} />
+          <Button
+            label={loading ? "Loading" : "Sign Up"}
+            type="submit"
+            full
+            disabled={loading}
+          />
         </form>
         {message && (
           <p className="text-xs text-center text-red-500 mt-2">{message}</p>
