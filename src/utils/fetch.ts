@@ -27,7 +27,6 @@ export async function fetchApi<T>({
       tags: [tag],
     };
   }
-  console.log(`Fetching ${method} ${process.env.NEXT_PUBLIC_API_PATH}/${path}`);
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_PATH}/${path}`,
     option

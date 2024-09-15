@@ -40,9 +40,6 @@ const SignUpForm = () => {
 
   const onSubmit: SubmitHandler<TSignUp> = (data) => {
     setLoading(true);
-    console.log(
-      `Attempting to sign up with API path: ${process.env.NEXT_PUBLIC_API_PATH}`
-    );
     fetch(`${process.env.NEXT_PUBLIC_API_PATH}/sign-up`, {
       method: "POST",
       body: JSON.stringify(data),

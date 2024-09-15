@@ -23,7 +23,6 @@ export async function POST(req: NextRequest) {
   };
 
   const validation = proposalSchema.safeParse(proposalData);
-  console.log(validation.error);
   if (validation.error) {
     return NextResponse.json(
       { message: validation.error.issues[0].message },
