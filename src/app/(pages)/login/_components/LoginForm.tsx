@@ -38,9 +38,11 @@ const LoginForm = () => {
     });
     if (res?.error || !res?.ok) {
       setMessage(res?.error);
+      setLoading(false);
       reset();
     }
     if (res?.ok) {
+      setLoading(false);
       router.push("/home");
     }
     reset();
